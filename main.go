@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"github.com/yugo-ibuki/musdok/cmd"
+	"os"
+)
 
 func main() {
-  fmt.Println("hello world!")
+	os.Exit(cmd.Execute())
 }
