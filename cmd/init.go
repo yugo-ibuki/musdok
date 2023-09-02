@@ -2,12 +2,11 @@ package cmd
 
 import (
 	"context"
-	"entgo.io/ent/dialect/sql"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
-	"github.com/yugo-ibuki/musdok/ent"
 	"github.com/yugo-ibuki/musdok/ent/migrate"
+	db "github.com/yugo-ibuki/musdok/internal"
 	"log"
 )
 
@@ -31,14 +30,12 @@ func newInitCmd() *cobra.Command {
 }
 
 func initDb() error {
-	drv, err := sql.Open("sqlite3", "file:musdok.db?_fk=1&cache=shared&_busy_timeout=5000")
+	client, err := db.Client()
 	if err != nil {
 		log.Fatalf("failed to open driver: %v", err)
 		return err
 	}
-	defer drv.Close()
-
-	client := ent.NewClient(ent.Driver(drv))
+	defer client.Close()
 
 	// Run migration
 	if err := client.Schema.Create(context.Background(),
