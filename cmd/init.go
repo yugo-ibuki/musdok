@@ -1,9 +1,14 @@
 package cmd
 
 import (
+	"context"
+	"entgo.io/ent/dialect/sql"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
+	"github.com/yugo-ibuki/musdok/ent"
+	"github.com/yugo-ibuki/musdok/ent/migrate"
+	"log"
 )
 
 func newInitCmd() *cobra.Command {
@@ -15,9 +20,9 @@ func newInitCmd() *cobra.Command {
 			fmt.Println("start initialize database")
 
 			// DB initialization process
-			//if err := initDb(); err != nil {
-			//	return err
-			//}
+			if err := initDb(); err != nil {
+				return err
+			}
 
 			fmt.Println("finish initialize database")
 			return nil
@@ -25,20 +30,22 @@ func newInitCmd() *cobra.Command {
 	}
 }
 
-//func initDb() error {
+func initDb() error {
+	drv, err := sql.Open("sqlite3", "file:ent.db?_fk=1&cache=shared&_busy_timeout=5000")
+	if err != nil {
+		log.Fatalf("failed to open driver: %v", err)
+		return err
+	}
+	defer drv.Close()
 
-//createTableQuery := `
-//CREATE TABLE IF NOT EXISTS users (
-//	id INTEGER PRIMARY KEY AUTOINCREMENT,
-//	name TEXT NOT NULL,
-//	age INTEGER
-//)
-//`
-//_, err = db.Exec(createTableQuery)
-//if err != nil {
-//	log.Fatalf("テーブル作成に失敗: %v", err)
-//}
+	client := ent.NewClient(ent.Driver(drv))
 
-//fmt.Println("start initialize database")
-//return nil
-//}
+	// Run migration
+	if err := client.Schema.Create(context.Background(),
+		migrate.WithGlobalUniqueID(true),
+	); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
+		return err
+	}
+	return nil
+}
