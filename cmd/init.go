@@ -15,9 +15,9 @@ func newInitCmd() *cobra.Command {
 			fmt.Println("start initialize database")
 
 			// DB initialization process
-			if err := initDb(); err != nil {
-				return err
-			}
+			//if err := initDb(); err != nil {
+			//	return err
+			//}
 
 			fmt.Println("finish initialize database")
 			return nil
