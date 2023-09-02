@@ -31,7 +31,7 @@ func newInitCmd() *cobra.Command {
 }
 
 func initDb() error {
-	drv, err := sql.Open("sqlite3", "file:ent.db?_fk=1&cache=shared&_busy_timeout=5000")
+	drv, err := sql.Open("sqlite3", "file:musdok.db?_fk=1&cache=shared&_busy_timeout=5000")
 	if err != nil {
 		log.Fatalf("failed to open driver: %v", err)
 		return err
