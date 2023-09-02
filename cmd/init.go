@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 )
 
@@ -11,8 +12,41 @@ func newInitCmd() *cobra.Command {
 		Short: "Initialize the database",
 		Long:  `Initialize the database`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println("init database")
+			fmt.Println("start initialize database")
+
+			// DB initialization process
+			if err := initDb(); err != nil {
+				return err
+			}
+
+			fmt.Println("finish initialize database")
 			return nil
 		},
 	}
+}
+
+func initDb() error {
+	//databaseName := "sample.db"
+
+	// no db, then create db or open db
+	//db, err := ent.Op("sqlite3", databaseName)
+	//if err != nil {
+	//	log.Fatalf("データベースのオープンに失敗: %v", err)
+	//}
+	//defer db.Close()
+
+	//createTableQuery := `
+	//CREATE TABLE IF NOT EXISTS users (
+	//	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	//	name TEXT NOT NULL,
+	//	age INTEGER
+	//)
+	//`
+	//_, err = db.Exec(createTableQuery)
+	//if err != nil {
+	//	log.Fatalf("テーブル作成に失敗: %v", err)
+	//}
+
+	fmt.Println("start initialize database")
+	return nil
 }
