@@ -11,7 +11,7 @@ const (
 	db      = "sqlite3"
 	dbName  = "musdok.db"
 	timeout = 5000
-	source  = "file:" + dbName + "?_fk=1&cache=shared&_busy_timeout=" + string(timeout)
+	source  = "file:" + dbName + "?_fk=1&cache=shared&_busy_timeout=" + string(rune(timeout))
 )
 
 func Client() (*ent.Client, error) {
