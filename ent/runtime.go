@@ -15,28 +15,24 @@ import (
 func init() {
 	todoFields := schema.Todo{}.Fields()
 	_ = todoFields
-	// todoDescOrder is the schema descriptor for order field.
-	todoDescOrder := todoFields[1].Descriptor()
-	// todo.OrderValidator is a validator for the "order" field. It is called by the builders before save.
-	todo.OrderValidator = todoDescOrder.Validators[0].(func(int) error)
 	// todoDescTitle is the schema descriptor for title field.
-	todoDescTitle := todoFields[2].Descriptor()
+	todoDescTitle := todoFields[1].Descriptor()
 	// todo.TitleValidator is a validator for the "title" field. It is called by the builders before save.
 	todo.TitleValidator = todoDescTitle.Validators[0].(func(string) error)
 	// todoDescDescription is the schema descriptor for description field.
-	todoDescDescription := todoFields[3].Descriptor()
+	todoDescDescription := todoFields[2].Descriptor()
 	// todo.DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
 	todo.DescriptionValidator = todoDescDescription.Validators[0].(func(string) error)
 	// todoDescDone is the schema descriptor for done field.
-	todoDescDone := todoFields[4].Descriptor()
+	todoDescDone := todoFields[3].Descriptor()
 	// todo.DefaultDone holds the default value on creation for the done field.
 	todo.DefaultDone = todoDescDone.Default.(bool)
 	// todoDescCreatedAt is the schema descriptor for created_at field.
-	todoDescCreatedAt := todoFields[5].Descriptor()
+	todoDescCreatedAt := todoFields[4].Descriptor()
 	// todo.DefaultCreatedAt holds the default value on creation for the created_at field.
 	todo.DefaultCreatedAt = todoDescCreatedAt.Default.(func() time.Time)
 	// todoDescUpdatedAt is the schema descriptor for updated_at field.
-	todoDescUpdatedAt := todoFields[6].Descriptor()
+	todoDescUpdatedAt := todoFields[5].Descriptor()
 	// todo.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	todo.DefaultUpdatedAt = todoDescUpdatedAt.Default.(func() time.Time)
 	// todo.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.

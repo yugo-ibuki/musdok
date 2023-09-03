@@ -20,12 +20,6 @@ type TodoCreate struct {
 	hooks    []Hook
 }
 
-// SetOrder sets the "order" field.
-func (tc *TodoCreate) SetOrder(i int) *TodoCreate {
-	tc.mutation.SetOrder(i)
-	return tc
-}
-
 // SetTitle sets the "title" field.
 func (tc *TodoCreate) SetTitle(s string) *TodoCreate {
 	tc.mutation.SetTitle(s)
@@ -137,14 +131,6 @@ func (tc *TodoCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (tc *TodoCreate) check() error {
-	if _, ok := tc.mutation.Order(); !ok {
-		return &ValidationError{Name: "order", err: errors.New(`ent: missing required field "Todo.order"`)}
-	}
-	if v, ok := tc.mutation.Order(); ok {
-		if err := todo.OrderValidator(v); err != nil {
-			return &ValidationError{Name: "order", err: fmt.Errorf(`ent: validator failed for field "Todo.order": %w`, err)}
-		}
-	}
 	if _, ok := tc.mutation.Title(); !ok {
 		return &ValidationError{Name: "title", err: errors.New(`ent: missing required field "Todo.title"`)}
 	}
@@ -201,10 +187,6 @@ func (tc *TodoCreate) createSpec() (*Todo, *sqlgraph.CreateSpec) {
 	if id, ok := tc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
-	}
-	if value, ok := tc.mutation.Order(); ok {
-		_spec.SetField(todo.FieldOrder, field.TypeInt, value)
-		_node.Order = value
 	}
 	if value, ok := tc.mutation.Title(); ok {
 		_spec.SetField(todo.FieldTitle, field.TypeString, value)

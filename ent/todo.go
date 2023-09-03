@@ -17,8 +17,6 @@ type Todo struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Order holds the value of the "order" field.
-	Order int `json:"order,omitempty"`
 	// Title holds the value of the "title" field.
 	Title string `json:"title,omitempty"`
 	// Description holds the value of the "description" field.
@@ -39,7 +37,7 @@ func (*Todo) scanValues(columns []string) ([]any, error) {
 		switch columns[i] {
 		case todo.FieldDone:
 			values[i] = new(sql.NullBool)
-		case todo.FieldID, todo.FieldOrder:
+		case todo.FieldID:
 			values[i] = new(sql.NullInt64)
 		case todo.FieldTitle, todo.FieldDescription:
 			values[i] = new(sql.NullString)
@@ -66,12 +64,6 @@ func (t *Todo) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			t.ID = int(value.Int64)
-		case todo.FieldOrder:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field order", values[i])
-			} else if value.Valid {
-				t.Order = int(value.Int64)
-			}
 		case todo.FieldTitle:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field title", values[i])
@@ -138,9 +130,6 @@ func (t *Todo) String() string {
 	var builder strings.Builder
 	builder.WriteString("Todo(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", t.ID))
-	builder.WriteString("order=")
-	builder.WriteString(fmt.Sprintf("%v", t.Order))
-	builder.WriteString(", ")
 	builder.WriteString("title=")
 	builder.WriteString(t.Title)
 	builder.WriteString(", ")

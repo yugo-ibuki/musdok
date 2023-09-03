@@ -28,19 +28,6 @@ func (tu *TodoUpdate) Where(ps ...predicate.Todo) *TodoUpdate {
 	return tu
 }
 
-// SetOrder sets the "order" field.
-func (tu *TodoUpdate) SetOrder(i int) *TodoUpdate {
-	tu.mutation.ResetOrder()
-	tu.mutation.SetOrder(i)
-	return tu
-}
-
-// AddOrder adds i to the "order" field.
-func (tu *TodoUpdate) AddOrder(i int) *TodoUpdate {
-	tu.mutation.AddOrder(i)
-	return tu
-}
-
 // SetTitle sets the "title" field.
 func (tu *TodoUpdate) SetTitle(s string) *TodoUpdate {
 	tu.mutation.SetTitle(s)
@@ -130,11 +117,6 @@ func (tu *TodoUpdate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (tu *TodoUpdate) check() error {
-	if v, ok := tu.mutation.Order(); ok {
-		if err := todo.OrderValidator(v); err != nil {
-			return &ValidationError{Name: "order", err: fmt.Errorf(`ent: validator failed for field "Todo.order": %w`, err)}
-		}
-	}
 	if v, ok := tu.mutation.Title(); ok {
 		if err := todo.TitleValidator(v); err != nil {
 			return &ValidationError{Name: "title", err: fmt.Errorf(`ent: validator failed for field "Todo.title": %w`, err)}
@@ -159,12 +141,6 @@ func (tu *TodoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := tu.mutation.Order(); ok {
-		_spec.SetField(todo.FieldOrder, field.TypeInt, value)
-	}
-	if value, ok := tu.mutation.AddedOrder(); ok {
-		_spec.AddField(todo.FieldOrder, field.TypeInt, value)
 	}
 	if value, ok := tu.mutation.Title(); ok {
 		_spec.SetField(todo.FieldTitle, field.TypeString, value)
@@ -199,19 +175,6 @@ type TodoUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *TodoMutation
-}
-
-// SetOrder sets the "order" field.
-func (tuo *TodoUpdateOne) SetOrder(i int) *TodoUpdateOne {
-	tuo.mutation.ResetOrder()
-	tuo.mutation.SetOrder(i)
-	return tuo
-}
-
-// AddOrder adds i to the "order" field.
-func (tuo *TodoUpdateOne) AddOrder(i int) *TodoUpdateOne {
-	tuo.mutation.AddOrder(i)
-	return tuo
 }
 
 // SetTitle sets the "title" field.
@@ -316,11 +279,6 @@ func (tuo *TodoUpdateOne) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (tuo *TodoUpdateOne) check() error {
-	if v, ok := tuo.mutation.Order(); ok {
-		if err := todo.OrderValidator(v); err != nil {
-			return &ValidationError{Name: "order", err: fmt.Errorf(`ent: validator failed for field "Todo.order": %w`, err)}
-		}
-	}
 	if v, ok := tuo.mutation.Title(); ok {
 		if err := todo.TitleValidator(v); err != nil {
 			return &ValidationError{Name: "title", err: fmt.Errorf(`ent: validator failed for field "Todo.title": %w`, err)}
@@ -362,12 +320,6 @@ func (tuo *TodoUpdateOne) sqlSave(ctx context.Context) (_node *Todo, err error) 
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := tuo.mutation.Order(); ok {
-		_spec.SetField(todo.FieldOrder, field.TypeInt, value)
-	}
-	if value, ok := tuo.mutation.AddedOrder(); ok {
-		_spec.AddField(todo.FieldOrder, field.TypeInt, value)
 	}
 	if value, ok := tuo.mutation.Title(); ok {
 		_spec.SetField(todo.FieldTitle, field.TypeString, value)

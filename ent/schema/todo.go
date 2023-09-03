@@ -15,7 +15,6 @@ type Todo struct {
 func (Todo) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("id").Unique(),
-		field.Int("order").NonNegative(),
 		field.String("title").NotEmpty(),
 		field.String("description").NotEmpty(),
 		field.Bool("done").Default(false),

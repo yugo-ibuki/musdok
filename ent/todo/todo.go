@@ -13,8 +13,6 @@ const (
 	Label = "todo"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldOrder holds the string denoting the order field in the database.
-	FieldOrder = "order"
 	// FieldTitle holds the string denoting the title field in the database.
 	FieldTitle = "title"
 	// FieldDescription holds the string denoting the description field in the database.
@@ -32,7 +30,6 @@ const (
 // Columns holds all SQL columns for todo fields.
 var Columns = []string{
 	FieldID,
-	FieldOrder,
 	FieldTitle,
 	FieldDescription,
 	FieldDone,
@@ -51,8 +48,6 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// OrderValidator is a validator for the "order" field. It is called by the builders before save.
-	OrderValidator func(int) error
 	// TitleValidator is a validator for the "title" field. It is called by the builders before save.
 	TitleValidator func(string) error
 	// DescriptionValidator is a validator for the "description" field. It is called by the builders before save.
@@ -73,11 +68,6 @@ type OrderOption func(*sql.Selector)
 // ByID orders the results by the id field.
 func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
-}
-
-// ByOrder orders the results by the order field.
-func ByOrder(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldOrder, opts...).ToFunc()
 }
 
 // ByTitle orders the results by the title field.

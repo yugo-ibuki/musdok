@@ -54,11 +54,6 @@ func IDLTE(id int) predicate.Todo {
 	return predicate.Todo(sql.FieldLTE(FieldID, id))
 }
 
-// Order applies equality check predicate on the "order" field. It's identical to OrderEQ.
-func Order(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldEQ(FieldOrder, v))
-}
-
 // Title applies equality check predicate on the "title" field. It's identical to TitleEQ.
 func Title(v string) predicate.Todo {
 	return predicate.Todo(sql.FieldEQ(FieldTitle, v))
@@ -82,46 +77,6 @@ func CreatedAt(v time.Time) predicate.Todo {
 // UpdatedAt applies equality check predicate on the "updated_at" field. It's identical to UpdatedAtEQ.
 func UpdatedAt(v time.Time) predicate.Todo {
 	return predicate.Todo(sql.FieldEQ(FieldUpdatedAt, v))
-}
-
-// OrderEQ applies the EQ predicate on the "order" field.
-func OrderEQ(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldEQ(FieldOrder, v))
-}
-
-// OrderNEQ applies the NEQ predicate on the "order" field.
-func OrderNEQ(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldNEQ(FieldOrder, v))
-}
-
-// OrderIn applies the In predicate on the "order" field.
-func OrderIn(vs ...int) predicate.Todo {
-	return predicate.Todo(sql.FieldIn(FieldOrder, vs...))
-}
-
-// OrderNotIn applies the NotIn predicate on the "order" field.
-func OrderNotIn(vs ...int) predicate.Todo {
-	return predicate.Todo(sql.FieldNotIn(FieldOrder, vs...))
-}
-
-// OrderGT applies the GT predicate on the "order" field.
-func OrderGT(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldGT(FieldOrder, v))
-}
-
-// OrderGTE applies the GTE predicate on the "order" field.
-func OrderGTE(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldGTE(FieldOrder, v))
-}
-
-// OrderLT applies the LT predicate on the "order" field.
-func OrderLT(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldLT(FieldOrder, v))
-}
-
-// OrderLTE applies the LTE predicate on the "order" field.
-func OrderLTE(v int) predicate.Todo {
-	return predicate.Todo(sql.FieldLTE(FieldOrder, v))
 }
 
 // TitleEQ applies the EQ predicate on the "title" field.
