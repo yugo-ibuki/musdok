@@ -60,3 +60,10 @@ func (tp *TodoRp) Update(ctx context.Context, id int, todo ent.Todo) {
 		os.Exit(1)
 	}
 }
+
+func (tp *TodoRp) Delete(ctx context.Context, id int) {
+	if err := tp.Client.Todo.DeleteOneID(id).Exec(ctx); err != nil {
+		fmt.Println("failed to delete todo. ", err)
+		os.Exit(1)
+	}
+}
