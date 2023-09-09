@@ -9,7 +9,9 @@ import (
 )
 
 type ITodoRp interface {
+	Close()
 	All() []*ent.Todo
+	Create(todo ent.Todo)
 }
 
 type TodoRp struct {
