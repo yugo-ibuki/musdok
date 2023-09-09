@@ -12,7 +12,8 @@ import (
 type ITodoRp interface {
 	Close()
 	All() []*ent.Todo
-	Create(todo ent.Todo)
+	Create(ctx context.Context, todo ent.Todo)
+	Update(ctx context.Context, id int, todo ent.Todo)
 }
 
 type TodoRp struct {
