@@ -39,11 +39,16 @@ func (tp *TodoRp) All(ctx context.Context) []*ent.Todo {
 	return res
 }
 
-func (tp *TodoRp) Create(ctx context.Context, todo ent.Todo) {
+func (tp *TodoRp) Create(ctx context.Context, todo ent.Todo) int {
 	todoCreate := tp.Client.Todo.Create()
 	todoCreate.SetTitle(todo.Title)
 	todoCreate.SetDescription(todo.Description)
-	todoCreate.SaveX(ctx)
+	saved, err := todoCreate.Save(ctx)
+	if err != nil {
+		fmt.Println("failed to create todo.")
+		os.Exit(1)
+	}
+	return saved.ID
 }
 
 func (tp *TodoRp) Update(ctx context.Context, id int, todo ent.Todo) {

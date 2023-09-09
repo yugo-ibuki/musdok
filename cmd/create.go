@@ -26,10 +26,11 @@ func newCreateCmd() *cobra.Command {
 				os.Exit(1)
 			}
 
-			create(cmd.Context(), ent.Todo{
+			id := create(cmd.Context(), ent.Todo{
 				Title:       ttl,
 				Description: dsp,
 			})
+			fmt.Printf("create success! id: %d", id)
 		},
 	}
 	addCreateFlgs(createCmd)
@@ -41,8 +42,9 @@ func addCreateFlgs(c *cobra.Command) {
 	c.Flags().String("desc", "", "TODO description")
 }
 
-func create(ctx context.Context, todo ent.Todo) {
+func create(ctx context.Context, todo ent.Todo) int {
 	repo := repository.NewTodoRp()
 	defer repo.Close()
-	repo.Create(ctx, todo)
+	id := repo.Create(ctx, todo)
+	return id
 }

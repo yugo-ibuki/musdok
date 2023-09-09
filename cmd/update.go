@@ -40,6 +40,8 @@ func newUpdateCmd() *cobra.Command {
 				Title:       ttl,
 				Description: dsp,
 			})
+
+			fmt.Printf("update success! id: %d, title: %s, desctiprion: %s", id, ttl, dsp)
 		},
 	}
 	addUpdateFlgs(updateCmd)

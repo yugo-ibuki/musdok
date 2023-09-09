@@ -23,6 +23,7 @@ func newDeleteCmd() *cobra.Command {
 				os.Exit(1)
 			}
 			delete(cmd.Context(), id)
+			fmt.Printf("delete success! id: %d", id)
 		},
 	}
 	addDeleteFlgs(deleteCmd)
