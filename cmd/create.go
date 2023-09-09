@@ -32,11 +32,11 @@ func newCreateCmd() *cobra.Command {
 			})
 		},
 	}
-	addFlgs(createCmd)
+	addCreateFlgs(createCmd)
 	return createCmd
 }
 
-func addFlgs(c *cobra.Command) {
+func addCreateFlgs(c *cobra.Command) {
 	c.Flags().String("title", "", "TODO title")
 	c.Flags().String("desc", "", "TODO description")
 }
