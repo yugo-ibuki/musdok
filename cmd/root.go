@@ -11,7 +11,7 @@ func newRootCmd() *cobra.Command {
 		Short: "musdok is a CLI to add and search for the todo list",
 		Long:  "musdok is a CLI to add and search for the todo list",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("hello world!!")
+			fmt.Println(cmd.Help())
 		},
 	}
 	cmd.AddCommand(newInitCmd())
