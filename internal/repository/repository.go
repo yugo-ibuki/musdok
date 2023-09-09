@@ -9,14 +9,6 @@ import (
 	"time"
 )
 
-type CrudRepository interface {
-	TodoRpInit() *TodoRp
-	Close()
-	All() []*ent.Todo
-	Create(ctx context.Context, todo ent.Todo)
-	Update(ctx context.Context, id int, todo ent.Todo)
-}
-
 type TodoRp struct {
 	Client *ent.Client
 }
