@@ -16,7 +16,7 @@ type TodoRp struct {
 func NewTodoRp() *TodoRp {
 	client, err := db.Client()
 	if err != nil {
-		fmt.Println("failed to open driver: %v", err)
+		fmt.Println("failed to open driver. ", err)
 		os.Exit(1)
 	}
 
@@ -56,7 +56,7 @@ func (tp *TodoRp) Update(ctx context.Context, id int, todo ent.Todo) {
 	// execute the query
 	todoUpdate.SetUpdatedAt(time.Now())
 	if err := todoUpdate.Exec(ctx); err != nil {
-		fmt.Println("failed to update todo: %v", err)
+		fmt.Println("failed to update todo. ", err)
 		os.Exit(1)
 	}
 }
