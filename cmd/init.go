@@ -6,7 +6,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 	"github.com/yugo-ibuki/musdok/ent/migrate"
-	db "github.com/yugo-ibuki/musdok/internal"
+	"github.com/yugo-ibuki/musdok/internal/db"
 	"log"
 )
 
