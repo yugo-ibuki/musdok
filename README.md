@@ -35,6 +35,8 @@ musdok delete --id 1
 ```
 
 ## Options
+
+### Root Action
 ```bash
 $ musdok -h
 musdok is a CLI to add and search for the todo list
@@ -56,6 +58,7 @@ Flags:
   -h, --help   help for musdok
 ```
 
+### init
 ```bash
 musdok init -h                                                                                                                    土  9/ 9 16:48:13 2023
 Initialize the database
@@ -67,6 +70,7 @@ Flags:
   -h, --help   help for init
 ```
 
+### all
 ```bash
 musdok all -h                                                                                                                     土  9/ 9 16:47:59 2023
 shows all todos
@@ -78,7 +82,7 @@ Flags:
   -h, --help   help for all
 ```
 
-
+### create
 ```bash
 $ musdok create -h                                                                                                          437ms  土  9/ 9 16:46:10 2023
 Create a new todo
@@ -92,6 +96,7 @@ Flags:
       --title string   TODO title
 ```
 
+### update
 ```bash
 musdok update -h                                                                                                                  土  9/ 9 16:47:23 2023
 Update a new todo
@@ -106,6 +111,7 @@ Flags:
       --title string   TODO title
 ```
 
+### delete
 ```bash
  musdok delete -h                                                                                                                  土  9/ 9 16:46:19 2023
 Delete a todo
