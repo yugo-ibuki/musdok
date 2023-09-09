@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/yugo-ibuki/musdok/ent"
 	"github.com/yugo-ibuki/musdok/internal/repository"
-	"os"
 )
 
 func newAllCmd() *cobra.Command {
@@ -33,11 +32,5 @@ func newAllCmd() *cobra.Command {
 
 func all(ctx context.Context) []*ent.Todo {
 	repo := repository.NewTodoRp()
-	todos, err := repo.Client.Todo.Query().All(ctx)
-	if err != nil {
-		fmt.Println("failed to query todos: %v", err)
-		os.Exit(1)
-	}
-
-	return todos
+	return repo.All(ctx)
 }

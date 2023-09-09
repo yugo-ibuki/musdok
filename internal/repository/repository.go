@@ -9,7 +9,8 @@ import (
 	"time"
 )
 
-type ITodoRp interface {
+type CrudRepository interface {
+	TodoRpInit() *TodoRp
 	Close()
 	All() []*ent.Todo
 	Create(ctx context.Context, todo ent.Todo)
@@ -36,8 +37,14 @@ func (tp *TodoRp) Close() {
 	tp.Client.Close()
 }
 
-func (tp *TodoRp) All(ctx context.Context) {
-	tp.Client.Todo.Query().All(ctx)
+func (tp *TodoRp) All(ctx context.Context) []*ent.Todo {
+	res, err := tp.Client.Todo.Query().All(ctx)
+	if err != nil {
+		fmt.Println("failed to query todos: %v", err)
+		os.Exit(1)
+	}
+
+	return res
 }
 
 func (tp *TodoRp) Create(ctx context.Context, todo ent.Todo) {
