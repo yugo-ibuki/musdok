@@ -19,6 +19,12 @@ musdok init
 musdok all
 ```
 
+sample result:
+```bash:sample
+ID: 1 / Title: sample / Desc: sampledesc / Created: 2023-09-03 13:52:25.724707 +0900 +0900 / Updated: 2023-09-03 13:52:25.724707 +0900 +0900
+ID: 3 / Title: sample2 / Desc: sampledesc2 / Created: 2023-09-09 16:11:18.917615 +0900 +0900 / Updated: 2023-09-09 16:43:31.228213 +0900 +0900
+```
+
 ### Add TODO
 ```bash
 musdok create --title "title" --desc "description"
