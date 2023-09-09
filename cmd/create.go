@@ -1,10 +1,12 @@
 package cmd
 
 import (
-	"entgo.io/ent"
+	"context"
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/yugo-ibuki/musdok/internal"
+	"github.com/yugo-ibuki/musdok/ent"
+	"github.com/yugo-ibuki/musdok/internal/db"
+	"github.com/yugo-ibuki/musdok/internal/repository"
 	"os"
 )
 
@@ -14,18 +16,33 @@ func newCreateCmd() *cobra.Command {
 		Short: "Create a new todo",
 		Long:  `Create a new todo`,
 		Run: func(cmd *cobra.Command, args []string) {
-			no := db.DatabaseExists()
-			if no {
-				fmt.Println("`musdok.db` already exists.")
+			ttl := cmd.Flag("title").Value.String()
+			dsp := cmd.Flag("desc").Value.String()
+
+			//check if the database exists
+			yes := db.DatabaseExists()
+			if !yes {
+				fmt.Println("Do `init` command first to create db")
 				os.Exit(1)
 			}
 
-			createTodo()
+			create(cmd.Context(), ent.Todo{
+				Title:       ttl,
+				Description: dsp,
+			})
 		},
 	}
+	addFlgs(createCmd)
 	return createCmd
 }
 
-func createTodo() {
-	ent.Schema{}.Fields()
+func addFlgs(c *cobra.Command) {
+	c.Flags().String("title", "", "TODO title")
+	c.Flags().String("desc", "", "TODO description")
+}
+
+func create(ctx context.Context, todo ent.Todo) {
+	repo := repository.NewTodoRp()
+	defer repo.Close()
+	repo.Create(ctx, todo)
 }
