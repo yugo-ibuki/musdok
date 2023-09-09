@@ -12,7 +12,7 @@ import (
 
 func newInitCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "init DB",
+		Use:   "init",
 		Short: "Initialize the database",
 		Long:  `Initialize the database`,
 		RunE: func(cmd *cobra.Command, args []string) error {
